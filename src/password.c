@@ -12,7 +12,7 @@ void authenticate(char *filename);
 
 int main(int argc, char *argv[])
 {
-    printf("Hello, world!\n");
+    printMainMenu();
 
     return 0;
 }
