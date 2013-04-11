@@ -16,3 +16,13 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+
+void printMainMenu()
+{
+    printf("1. Add user.\n");
+    printf("2. Delete user.\n");
+    printf("3. Authenticate user.\n");
+    printf("0. Exit.\n");
+    printf("Please enter a number to make a selection.\n");
+    printf("> ");
+}
