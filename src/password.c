@@ -36,3 +36,17 @@ void printMainMenu()
     printf("Please enter a number to make a selection.\n");
     printf("> ");
 }
+
+char randomChar()
+/* called when creating salt for password hash creation  */
+{
+    char saltChars[] = ".abcdefghijklmnopqrstuvwxyz12345"
+                       "/ABCDEFGHIJKLMNOPQRSTUVWXYZ67890";
+    char myChar = '0';
+    int index = rand();
+    index = index%64;   /* makes index 0-63 for saltChars array */
+
+    mychar = saltChars[index];
+
+    return myChar;
+}
