@@ -10,19 +10,61 @@ void printMainMenu();
 void addUser(char *filename);
 void deleteUser(char *filename);
 void authenticate(char *filename);
+char randomChar();
+char *getInput(char *input, int size);
 
 int main(int argc, char *argv[])
 {
     printf("Welcome to the User Management System.\n");
 
+    srand(time(0));
+
     programLoop();
+
+    printf("Thank you and have a nice day.\n\n");
 
     return 0;
 }
 
 void programLoop()
 {
-    printMainMenu();
+    int quit = 0;
+    int choice = 0;
+
+    while(!quit)
+    {
+        printMainMenu();
+
+        choice = getchar()-48;  /* adjusts ascii to integer */
+
+        while(getchar() != '\n') /* strips all but first char  */
+        {
+            ;
+        }
+
+        printf("\n");
+
+        switch(choice)
+        {
+            case 1:
+                    printf("Adding user\n");
+                    //addUser(filename);
+                    break;
+            case 2:
+                    printf("Deleting user\n");
+                    //deleteUser(filename);
+                    break;
+            case 3:
+                    printf("Authenticating user\n");
+                    //authenticate(filename);
+                    break;
+            case 0:
+                    quit = 1;
+                    break;
+            default:
+                    printf("\tThat's not an option.  Please choose again.\n");
+        }
+    }
 }
 
 void printMainMenu()
@@ -46,7 +88,7 @@ char randomChar()
     int index = rand();
     index = index%64;   /* makes index 0-63 for saltChars array */
 
-    mychar = saltChars[index];
+    myChar = saltChars[index];
 
     return myChar;
 }
