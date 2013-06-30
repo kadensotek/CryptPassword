@@ -50,3 +50,29 @@ char randomChar()
 
     return myChar;
 }
+
+char *getInput(char *input, int size)
+/* gets input from user while clearing buffer and stripping newline chars */
+{
+    int i =0;
+
+    /* loops until EOF or newline char is reached */
+    for ( ;;)
+    {
+        int ch = fgetc(stdin);
+
+        if(ch=='\n' || ch==EOF)
+        {
+            break;
+        }
+
+        if(i<size-1) /* only stores char if within size limit */
+        {
+            input[i++] = ch;
+        }
+    }
+
+    input[i] = '\0'; /* appends null terminator wherever loop is broken  */
+
+    return input;
+}
