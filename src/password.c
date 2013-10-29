@@ -17,12 +17,9 @@ int main(int argc, char *argv[])
 {
     printf("Welcome to the User Management System.\n");
 
-    srand(time(0));
-
     programLoop();
 
     printf("Thank you and have a nice day.\n\n");
-
     return 0;
 }
 
@@ -30,6 +27,20 @@ void programLoop()
 {
     int quit = 0;
     int choice = 0;
+    FILE *fp = NULL;
+    char filename[] = "userpass.txt";
+    srand(time(0));
+
+    fp = fopen(filename, "r");
+
+    if(fp = NULL)
+    {
+        fp = fopen(filename, "w+");
+    }
+    else
+    {
+        fclose(fp);
+    }
 
     while(!quit)
     {
@@ -47,7 +58,6 @@ void programLoop()
         switch(choice)
         {
             case 1:
-                    printf("Adding user\n");
                     addUser(filename);
                     break;
             case 2:
@@ -70,7 +80,7 @@ void programLoop()
 void addUser(char *filename)
 {
     FILE *fp;
-    char *salt = malloc(3);
+    char salt[3] = "";
     char *username = malloc(11);
     char *password = malloc(11);
     char *hashpass = malloc(14);
