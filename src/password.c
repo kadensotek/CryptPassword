@@ -81,10 +81,10 @@ void programLoop()
 void addUser(char *filename)
 {
     FILE *fp;
-    char salt[3] = "";
-    char username[11] = "";
-    char password[11] = "";
-    char hashpass[14] = "";
+    char *salt     = malloc(sizeof(char) * 3);
+    char *username = malloc(sizeof(char) * 11);
+    char *password = malloc(sizeof(char) * 11);
+    char *hashpass = malloc(sizeof(char) * 14);
     int userExists = 0;
 
     /* gets random seed for hashing */
