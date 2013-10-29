@@ -67,6 +67,68 @@ void programLoop()
     }
 }
 
+void addUser(char *filename)
+{
+    FILE *fp;
+    char *salt = malloc(3);
+    char *username = malloc(11);
+    char *password = malloc(11);
+    char *hashpass = malloc(14);
+    int userExists = 0;
+
+    /* gets random seed for hashing */
+    salt[0] = randomChar();;
+    salt[1] = randomChar();
+    salt[2] = '\0';
+
+    fprintf(stdout, "\nPlease enter a username to add (limited to 10 characters)\n>  ");
+   
+    username = getInput(username, 11);
+
+    userExists = findMatch(filename, username);    
+
+    if(userExists == -1)
+    {
+        fprintf(stdout, "\n\tError: \"%s\" file not found.\n", filename);
+
+        return;
+    } 
+    else if(userExists == 1)
+    {
+        fprintf(stdout, "\n\tError: user \"%s\" already exists\n", username);
+        return;
+    }
+    else
+    {
+        fprintf(stdout, "\nPlease enter your password (limited to 10 characters)\n>  ");
+        password = getInput(password, 11);
+
+        hashpass = crypt(password, salt);
+
+        if(hashpass == NULL)
+        {
+            fprintf(stdout, "\n\tError: password hash creation failed.\n");
+            return;
+        }
+        else
+        {
+            if((fp = fopen(filename, "a")) == NULL)
+            {
+                fprintf(stdout, "\n\tError: can't write to file \"%s\".\n", filename);
+                return;
+            }
+            else
+            {
+               fprintf(fp, "%s %s\n", username, hashpass); 
+            }
+
+            fclose(fp);
+        }
+
+        fprintf(stdout, "\n\tAdded user \"%s\"\n", username);
+    }
+}
+
 void printMainMenu()
 {
     printf("\nMain Menu\n");
