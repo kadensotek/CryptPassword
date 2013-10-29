@@ -82,9 +82,9 @@ void addUser(char *filename)
 {
     FILE *fp;
     char salt[3] = "";
-    char *username = malloc(11);
-    char *password = malloc(11);
-    char *hashpass = malloc(14);
+    char username[11] = "";
+    char password[11] = "";
+    char hashpass[14] = "";
     int userExists = 0;
 
     /* gets random seed for hashing */
@@ -92,7 +92,7 @@ void addUser(char *filename)
     salt[1] = randomChar();
     salt[2] = '\0';
 
-    fprintf(stdout, "\nPlease enter a username to add (limited to 10 characters)\n>  ");
+    printf("\nPlease enter a username to add (limited to 10 characters)\n>  ");
    
     username = getInput(username, 11);
 
@@ -100,32 +100,32 @@ void addUser(char *filename)
 
     if(userExists == -1)
     {
-        fprintf(stdout, "\n\tError: \"%s\" file not found.\n", filename);
+        printf("\n\tError: \"%s\" file not found.\n", filename);
 
         return;
     } 
     else if(userExists == 1)
     {
-        fprintf(stdout, "\n\tError: user \"%s\" already exists\n", username);
+        printf("\n\tError: user \"%s\" already exists\n", username);
         return;
     }
     else
     {
-        fprintf(stdout, "\nPlease enter your password (limited to 10 characters)\n>  ");
+        printf("\nPlease enter your password (limited to 10 characters)\n>  ");
         password = getInput(password, 11);
 
         hashpass = crypt(password, salt);
 
         if(hashpass == NULL)
         {
-            fprintf(stdout, "\n\tError: password hash creation failed.\n");
+            printf("\n\tError: password hash creation failed.\n");
             return;
         }
         else
         {
             if((fp = fopen(filename, "a")) == NULL)
             {
-                fprintf(stdout, "\n\tError: can't write to file \"%s\".\n", filename);
+                printf("\n\tError: can't write to file \"%s\".\n", filename);
                 return;
             }
             else
@@ -136,7 +136,7 @@ void addUser(char *filename)
             fclose(fp);
         }
 
-        fprintf(stdout, "\n\tAdded user \"%s\"\n", username);
+        printf("\n\tAdded user \"%s\"\n", username);
     }
 }
 
