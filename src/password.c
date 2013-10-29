@@ -48,7 +48,7 @@ void programLoop()
         {
             case 1:
                     printf("Adding user\n");
-                    //addUser(filename);
+                    addUser(filename);
                     break;
             case 2:
                     printf("Deleting user\n");
