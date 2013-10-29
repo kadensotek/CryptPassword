@@ -12,6 +12,7 @@ void deleteUser(char *filename);
 void authenticate(char *filename);
 char randomChar();
 char *getInput(char *input, int size);
+int findMatch(char *filename, char *username);
 
 int main(int argc, char *argv[])
 {
@@ -33,7 +34,7 @@ void programLoop()
 
     fp = fopen(filename, "r");
 
-    if(fp = NULL)
+    if(fp == NULL)
     {
         fp = fopen(filename, "w+");
     }
@@ -189,4 +190,33 @@ char *getInput(char *input, int size)
     input[i] = '\0'; /* appends null terminator wherever loop is broken  */
 
     return input;
+}
+
+int findMatch(char *filename, char *username)
+{
+    FILE *fp;
+    int resultFound = 0;
+    char temp[50];
+
+    /* opens file for reading */
+    if((fp = fopen(filename, "r")) == NULL)
+    {
+        return(-1);
+    }
+
+    while((fscanf(fp, "%s", temp)) != EOF)
+    {
+        /* if string match is found*/
+        if(strncmp(username, temp, 11) == 0)
+        {
+            resultFound = 1;
+            break;
+        }
+
+        fscanf(fp, "%s", temp);
+    }
+
+    fclose(fp);
+
+    return(resultFound);
 }
